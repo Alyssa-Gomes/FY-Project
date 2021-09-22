@@ -1,4 +1,5 @@
 % Slightly older edition
+% New?
 
 %% Check different combinations of w, c1 and c2
 clear;
