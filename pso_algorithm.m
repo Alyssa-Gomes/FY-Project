@@ -117,9 +117,9 @@ function out = pso_algorithm(problem, params)
         BestCosts(it) = GlobalBest.Cost;
 
         % Display Iteration Information
-        %if ShowIterInfo
-            %disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it))]);
-        %end
+        if ShowIterInfo
+            disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it))]);
+        end
 
         % Damping Inertia Coefficient
         w = w * wdamp;
