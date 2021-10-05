@@ -62,7 +62,7 @@ function out = pso_algorithm(problem, params)
         % Update Global Best
         if particle(i).Best.Cost < GlobalBest.Cost
             GlobalBest = particle(i).Best;
-            coeffs = [1 GlobalBest.Cost w c1 c2];
+            %coeffs = [1 GlobalBest.Cost w c1 c2];
         end
 
     end

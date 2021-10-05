@@ -23,22 +23,12 @@ problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];   % Upper Bound of Decision Varia
 
 %% PSO Parameters
 
-% Constriction Coefficients
-kappa = 1;
-phi1 = 2.05;
-phi2 = 2.05;
-phi = phi1 + phi2;
-chi = 2*kappa/abs(2-phi-sqrt(phi^2-4*phi));
-
 params.MaxIt = 500;        % Maximum Number of Iterations
-params.nPop = 50;           % Population (Swarm) Size
-params.w = chi;             % Intertia Coefficient
-%params.w = 0.65;
+params.nPop = 50;           % Population (Swarm) Size          
+params.w = 0.65;            % Intertia Coefficient
 params.wdamp = 1;           % Inertia Coefficient Damping Ratio
-params.c1 = chi*phi1;       % Personal Acceleration Coefficient
-%params.c1 = 1.65;
-params.c2 = chi*phi2;       % Social Acceleration Coefficient
-%params.c2 = 1.75;
+params.c1 = 1.65;           % Personal Acceleration Coefficient    
+params.c2 = 1.75;           % Social Acceleration Coefficient
 params.ShowIterInfo = true; % Iteration Flag
 
 %% Calling PSO
