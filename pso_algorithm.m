@@ -70,9 +70,9 @@ function out = pso_algorithm(problem, params)
 
     % Best Cost Value for each Iteration (Array)
     %BestCosts = zeros(MaxIt, 1);
-    BestCosts = NaN(MaxIt+1, 1); % MaxIt+1 since initial pop is also considered
+    BestCosts = NaN(MaxIt+1, 1); % MaxIt+1 since initial pop is also considered as iteration 0
     BestCosts(1) = GlobalBest.Cost;
-    disp(['Iteration ' num2str(1) ': Best Cost = ' num2str(BestCosts(1))]);
+    disp(['Iteration ' num2str(0) ': Best Cost = ' num2str(BestCosts(1))]);
 
     %% Main Loop of PSO
     for it=1:MaxIt
@@ -107,7 +107,7 @@ function out = pso_algorithm(problem, params)
                 % Update Global Best
                 if particle(i).Best.Cost < GlobalBest.Cost
                     GlobalBest = particle(i).Best;
-                    BestIter = it+1;
+                    BestIter = it;
                     
                     % Update best values array (for convergence)
                     %coeffs = [it GlobalBest.Cost w c1 c2];
@@ -123,7 +123,7 @@ function out = pso_algorithm(problem, params)
 
         % Display Iteration Information
         if ShowIterInfo
-            disp(['Iteration ' num2str(it+1) ': Best Cost = ' num2str(BestCosts(it+1))]);
+            disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it+1))]);
         end
 
         % Damping Inertia Coefficient

@@ -24,7 +24,7 @@ problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];   % Upper Bound of Decision Varia
 %% PSO Parameters
 
 params.MaxIt = 1000;        % Maximum Number of Iterations
-params.nPop = 20;           % Population (Swarm) Size          
+params.nPop = 50;           % Population (Swarm) Size          
 params.w = 0.7298;            % Intertia Coefficient
 params.wdamp = 1;           % Inertia Coefficient Damping Ratio
 params.c1 = 1.49609;           % Personal Acceleration Coefficient 
@@ -44,9 +44,14 @@ NRuns = 30;      % Number of runs
 bestposition = NaN(NRuns, problem.nVar);
 bestcost = NaN(NRuns, 1);
 bestiter = NaN(NRuns, 1);
+RunTime = NaN(NRuns, 1);
 
 for i = 1:NRuns
     rng(i, 'twister') % Varies the seed for the random numbers generated in the algorithm
+    
+    % Start timer
+    tic
+    
     out = pso_algorithm(problem, params);
     BestSol = out.BestSol;
     BestCosts = out.BestCosts;
@@ -56,6 +61,10 @@ for i = 1:NRuns
     bestposition(i,:) = BestSol.Position(:);
     bestcost(i) = BestSol.Cost;
     bestiter(i) = BestIter;
+    
+    % End timer
+    RunTime(i) = toc;
+    
 end
 
 %% Statistical Analysis
@@ -65,7 +74,8 @@ MaxCostVal = max(bestcost)
 MeanCost = mean(bestcost)
 MedianCost = median(bestcost)
 StdDevCost = std(bestcost)
-AvgConvergence = mean(bestiter)
+AvgCI = mean(bestiter)      % Average convergence iteration
+AvgRunTime = mean(RunTime)
 
 %% Result Plots
 %subplot(1,2,1)
