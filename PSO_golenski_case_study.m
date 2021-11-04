@@ -13,7 +13,7 @@ close all;
 clc;
 
 % Start timer:
-tic
+%tic
 
 %% Problem Definition
 problem.Function = @(x) golenski_case_study(x);  % Cost Function
@@ -23,26 +23,62 @@ problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];   % Upper Bound of Decision Varia
 
 %% PSO Parameters
 
-params.MaxIt = 500;        % Maximum Number of Iterations
-params.nPop = 50;           % Population (Swarm) Size          
-params.w = 0.65;            % Intertia Coefficient
+params.MaxIt = 1000;        % Maximum Number of Iterations
+params.nPop = 20;           % Population (Swarm) Size          
+params.w = 0.7298;            % Intertia Coefficient
 params.wdamp = 1;           % Inertia Coefficient Damping Ratio
-params.c1 = 1.65;           % Personal Acceleration Coefficient    
-params.c2 = 1.75;           % Social Acceleration Coefficient
+params.c1 = 1.49609;           % Personal Acceleration Coefficient 
+params.c2 = 1.49609;           % Social Acceleration Coefficient
 params.ShowIterInfo = true; % Iteration Flag
 
 %% Calling PSO
 out = pso_algorithm(problem, params);
-BestSol = out.BestSol;
-BestCosts = out.BestCosts;
 
-%% Results
-figure;
-% plot(BestCosts, 'LineWidth', 2);
-semilogy(BestCosts, 'LineWidth', 2);
-xlabel('Iteration');
-ylabel('Best Cost');
-grid on;
+%% Output
+%BestSol = out.BestSol;
+%BestCosts = out.BestCosts;
+%BestIter = out.BestIter;
+
+%% Run program multiple times
+NRuns = 30;      % Number of runs
+bestposition = NaN(NRuns, problem.nVar);
+bestcost = NaN(NRuns, 1);
+bestiter = NaN(NRuns, 1);
+
+for i = 1:NRuns
+    rng(i, 'twister') % Varies the seed for the random numbers generated in the algorithm
+    out = pso_algorithm(problem, params);
+    BestSol = out.BestSol;
+    BestCosts = out.BestCosts;
+    BestIter = out.BestIter;
+    
+    % Record best values for each run
+    bestposition(i,:) = BestSol.Position(:);
+    bestcost(i) = BestSol.Cost;
+    bestiter(i) = BestIter;
+end
+
+%% Statistical Analysis
+format long
+MinCostVal = min(bestcost)
+MaxCostVal = max(bestcost)
+MeanCost = mean(bestcost)
+MedianCost = median(bestcost)
+StdDevCost = std(bestcost)
+AvgConvergence = mean(bestiter)
+
+%% Result Plots
+%subplot(1,2,1)
+%plot(0:params.MaxIt, BestCosts, 'LineWidth', 1);
+%xlabel('Iteration');
+%ylabel('Best fitness value');
+%title('Best fitness value plot');
+
+%subplot(1,2,2)
+%semilogy(0:params.MaxIt, BestCosts, 'LineWidth', 1);
+%xlabel('Iteration');
+%ylabel('Best fitness value');
+%title('Best fitness value semilog plot');
 
 % Stop timer
-toc
+%toc

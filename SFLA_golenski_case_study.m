@@ -29,7 +29,7 @@ VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];           % Upper Bound of Unknown Variab
 
 %% SFLA Parameters
 
-MaxIt = 1000;        % Maximum Number of Iterations
+MaxIt = 500;        % Maximum Number of Iterations
 
 nPopMemeplex = 10;                          % Memeplex Size
 %nPopMemeplex = max(nPopMemeplex, nVar+1);   % Nelder-Mead Standard
@@ -108,13 +108,24 @@ for it = 1:MaxIt
 end
 
 %% Results
-
-figure;
-%plot(BestCosts, 'LineWidth', 2);
-semilogy(BestCosts, 'LineWidth', 2);
+subplot(1,2,1)
+plot(BestCosts, 'LineWidth', 1);
 xlabel('Iteration');
-ylabel('Best Cost');
-grid on;
+ylabel('Best fitness value');
+title('Best fitness value plot');
+
+subplot(1,2,2)
+semilogy(BestCosts, 'LineWidth', 1);
+xlabel('Iteration');
+ylabel('Best fitness value');
+title('Best fitness value semilog plot');
+
+%figure;
+%plot(BestCosts, 'LineWidth', 2);
+%semilogy(BestCosts, 'LineWidth', 2);
+%xlabel('Iteration');
+%ylabel('Best Cost');
+%grid on;
 
 % Stop time
 toc
