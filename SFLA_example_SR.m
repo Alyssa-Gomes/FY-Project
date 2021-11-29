@@ -24,12 +24,18 @@ problem.VarMin = [100 100 100 -10 -10 0 0];   % Lower Bound of Decision Variable
 problem.VarMax = [600 900 300 2500000 2500000 100 100];   % Upper Bound of Decision Variables
 
 %% SFLA Parameters
-params.MaxIt = 5000;        % Maximum Number of Iterations
+params.MaxIt = 1000;                                  % Maximum Number of Iterations
 
-params.nPopMemeplex = 10;                          % Memeplex Size
+params.nPopMemeplex = 10;                           % Memeplex Size 10
 %params.nPopMemeplex = max(nPopMemeplex, nVar+1);   % Nelder-Mead Standard
+params.nMemeplex = 5;                               % Number of Memeplexes 5
 
-params.nMemeplex = 5;                  % Number of Memeplexes
+% FLA Parameters
+params.alpha = 3;                                   % Number of offspring                       
+params.beta = 5;                                    % Max number of iterations
+params.w = 1;                                       % Weight factor - to avoid premature convergence
+params.c1 = 2;                                      % Search acceleration factor for eqn 1
+params.c2 = 2;                                      % Search acceleration factor for eqn 2
 
 %% Calling SFLA
 %out = sfla_algorithm(problem, params);

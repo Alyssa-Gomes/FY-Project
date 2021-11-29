@@ -112,6 +112,8 @@ f = (0.7854*3.3333)*x1*(x2^2)*(x3^2) + (0.7854*14.9334)*x1*(x2^2)*x3 ...
 
 % Final result (with constraints and penalty)
 z = f + rm*penalty;
+%z.Cost = f + rm*penalty; %
+%z.Penalty = penalty; %
 
 % Print Output 
 %disp(['Best Sol = ' num2str(z) ', Penalty = ' num2str(penalty) ', x1 = ' num2str(x1) ...

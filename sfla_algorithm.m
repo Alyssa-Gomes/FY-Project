@@ -21,10 +21,12 @@ function out = sfla_algorithm(problem, params)
     I = reshape(1:nPop, nMemeplex, []);
 
     %% FLA Parameters
-    fla_params.q = max(round(0.3*nPopMemeplex), 2);   % Number of Parents
-    fla_params.alpha = 3;                             % Number of offspring
-    fla_params.beta = 5;                              % Maximum Number of Iterations
-    fla_params.sigma = 2;                             % Step Size
+    fla_params.q = max(round(0.3*nPopMemeplex), 2);     % Number of Parents
+    fla_params.alpha = params.alpha;                    % Number of offspring
+    fla_params.beta = params.beta;                      % Maximum Number of Iterations
+    fla_params.w = params.w;                            % w
+    fla_params.c1 = params.c1;                          % c1
+    fla_params.c2 = params.c2;                          % c2
     fla_params.CostFunction = CostFunction;
     fla_params.VarMin = VarMin;
     fla_params.VarMax = VarMax;
@@ -41,6 +43,9 @@ function out = sfla_algorithm(problem, params)
     for i = 1:nPop
         pop(i).Position = unifrnd(VarMin, VarMax, VarSize);
         pop(i).Cost = CostFunction(pop(i).Position);
+        %z = CostFunction(pop(i).Position); %
+        %pop(i).Cost = z.Cost; %
+        %pop(i).Penalty = z.Penalty; %
     end
 
     % Sort Population
@@ -55,7 +60,7 @@ function out = sfla_algorithm(problem, params)
     %BestCosts = nan(MaxIt, 1);
     BestCosts = NaN(MaxIt+1, 1); % MaxIt+1 since initial pop is also considered as iteration 0
     BestCosts(1) = BestSol.Cost;    
-    disp(['Iteration ' num2str(0) ': Best Cost = ' num2str(BestCosts(1))]);
+    %disp(['Iteration ' num2str(0) ': Best Cost = ' num2str(BestCosts(1))]);
 
 
     %% SFLA Main Loop
@@ -94,7 +99,7 @@ function out = sfla_algorithm(problem, params)
         BestCosts(it+1) = BestSol.Cost;
     
         %% Show Iteration Information
-        disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it+1))]);
+        %disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it+1))]);
     
     end
 

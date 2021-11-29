@@ -1,4 +1,4 @@
- % PSO - Sphere Benchmark Function
+% PSO - Sphere Benchmark Function
 
 clear;
 close all;

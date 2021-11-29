@@ -38,10 +38,6 @@ function out = pso_algorithm(problem, params)
 
     % Initialization of Global Best
     GlobalBest.Cost = inf;
-    
-    % Initialization of best values array (for convergence)
-    %coeffs = [MaxIt 1000 0 0 0];
-    %all_coeffs = [];
 
     % Initialization of Population Members
     for i=1:nPop
@@ -54,16 +50,19 @@ function out = pso_algorithm(problem, params)
 
         % Evaluation
         particle(i).Cost = Function(particle(i).Position);
+        %z = Function(particle(i).Position); %
+        %particle(i).Cost = z.Cost; %
+        %particle(i).Penalty = z.Penalty; %
 
         % Update Personal Best
         particle(i).Best.Position = particle(i).Position;
         particle(i).Best.Cost = particle(i).Cost;
+        %particle(i).Best.Penalty = particle(i).Penalty; %
 
         % Update Global Best
         if particle(i).Best.Cost < GlobalBest.Cost
             GlobalBest = particle(i).Best;
             BestIter = 1; % Iteration number corresponding to global best cost
-            %coeffs = [1 GlobalBest.Cost w c1 c2];
         end
 
     end
@@ -72,7 +71,7 @@ function out = pso_algorithm(problem, params)
     %BestCosts = zeros(MaxIt, 1);
     BestCosts = NaN(MaxIt+1, 1); % MaxIt+1 since initial pop is also considered as iteration 0
     BestCosts(1) = GlobalBest.Cost;
-    disp(['Iteration ' num2str(0) ': Best Cost = ' num2str(BestCosts(1))]);
+    %disp(['Iteration ' num2str(0) ': Best Cost = ' num2str(BestCosts(1))]);
 
     %% Main Loop of PSO
     for it=1:MaxIt
@@ -97,12 +96,16 @@ function out = pso_algorithm(problem, params)
 
             % Evaluation
             particle(i).Cost = Function(particle(i).Position);
+            %z = Function(particle(i).Position); %
+            %particle(i).Cost = z.Cost; %
+            %particle(i).Penalty = z.Penalty; %
 
             % Update Personal Best
             if particle(i).Cost < particle(i).Best.Cost
 
                 particle(i).Best.Position = particle(i).Position;
                 particle(i).Best.Cost = particle(i).Cost;
+                %particle(i).Best.Penalty = particle(i).Penalty; %
 
                 % Update Global Best
                 if particle(i).Best.Cost < GlobalBest.Cost
@@ -122,9 +125,9 @@ function out = pso_algorithm(problem, params)
         BestCosts(it+1) = GlobalBest.Cost;
 
         % Display Iteration Information
-        if ShowIterInfo
-            disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it+1))]);
-        end
+        %if ShowIterInfo
+        %    disp(['Iteration ' num2str(it) ': Best Cost = ' num2str(BestCosts(it+1))]);
+        %end
 
         % Damping Inertia Coefficient
         %w = w * wdamp;

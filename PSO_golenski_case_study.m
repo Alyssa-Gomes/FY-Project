@@ -24,15 +24,15 @@ problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];   % Upper Bound of Decision Varia
 %% PSO Parameters
 
 params.MaxIt = 1000;        % Maximum Number of Iterations
-params.nPop = 50;           % Population (Swarm) Size          
-params.w = 0.7298;            % Intertia Coefficient
+params.nPop = 30;           % Population (Swarm) Size          
+params.w = 0.5;            % Intertia Coefficient
 params.wdamp = 1;           % Inertia Coefficient Damping Ratio
-params.c1 = 1.49609;           % Personal Acceleration Coefficient 
-params.c2 = 1.49609;           % Social Acceleration Coefficient
+params.c1 = 1.5;           % Personal Acceleration Coefficient 
+params.c2 = 1.5;           % Social Acceleration Coefficient
 params.ShowIterInfo = true; % Iteration Flag
 
 %% Calling PSO
-out = pso_algorithm(problem, params);
+%out = pso_algorithm(problem, params);
 
 %% Output
 %BestSol = out.BestSol;
@@ -60,6 +60,7 @@ for i = 1:NRuns
     % Record best values for each run
     bestposition(i,:) = BestSol.Position(:);
     bestcost(i) = BestSol.Cost;
+    %penalty(i) = BestSol.Penalty; %
     bestiter(i) = BestIter;
     
     % End timer
@@ -76,6 +77,7 @@ MedianCost = median(bestcost)
 StdDevCost = std(bestcost)
 AvgCI = mean(bestiter)      % Average convergence iteration
 AvgRunTime = mean(RunTime)
+%AvgPenalty = mean(penalty) %
 
 %% Result Plots
 %subplot(1,2,1)

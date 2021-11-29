@@ -6,14 +6,16 @@ function pop = RunFLA(pop, params)
     q = params.q;           % Number of Parents
     alpha = params.alpha;   % Number of Offsprings
     beta = params.beta;     % Maximum Number of Iterations
-    sigma = params.sigma;
+    w = params.w;
+    c1 = params.c1;
+    c2 = params.c2;
     CostFunction = params.CostFunction;
     VarMin = params.VarMin;
     VarMax = params.VarMax;
     VarSize = size(pop(1).Position);
     BestSol = params.BestSol;
     
-    nPop = numel(pop);      % Population Size
+    nPop = numel(pop);                          % Population Size
     P = 2*(nPop+1-(1:nPop))/(nPop*(nPop+1));    % Selection Probabilities
     
     % Calculate Population Range (Smallest Hypercube)
@@ -45,10 +47,13 @@ function pop = RunFLA(pop, params)
             
             % Improvement Step 1
             NewSol1 = B(end);
-            Step = sigma*rand(VarSize).*(B(1).Position-B(end).Position);
-            NewSol1.Position = B(end).Position + Step;
+            Step = c1*rand(VarSize).*(B(1).Position-B(end).Position);
+            NewSol1.Position = w*B(end).Position + Step;
             if IsInRange(NewSol1.Position, VarMin, VarMax)
                 NewSol1.Cost = CostFunction(NewSol1.Position);
+                %z = CostFunction(NewSol1.Position); %
+                %NewSol1.Cost = z.Cost; %
+                %NewSol1.Penalty = z.Penalty; %
                 if NewSol1.Cost<B(end).Cost
                     B(end) = NewSol1;
                 else
@@ -61,10 +66,13 @@ function pop = RunFLA(pop, params)
             % Improvement Step 2
             if ImprovementStep2
                 NewSol2 = B(end);
-                Step = sigma*rand(VarSize).*(BestSol.Position-B(end).Position);
-                NewSol2.Position = B(end).Position + Step;
+                Step = c2*rand(VarSize).*(BestSol.Position-B(end).Position);
+                NewSol2.Position = w*B(end).Position + Step;
                 if IsInRange(NewSol2.Position, VarMin, VarMax)
                     NewSol2.Cost = CostFunction(NewSol2.Position);
+                    %z = CostFunction(NewSol2.Position); %
+                    %NewSol2.Cost = z.Cost; %
+                    %NewSol2.Penalty = z.Penalty; %
                     if NewSol2.Cost<B(end).Cost
                         B(end) = NewSol2;
                     else

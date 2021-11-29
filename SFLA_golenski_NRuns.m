@@ -26,12 +26,18 @@ problem.VarMin = [2.6 0.7 17 7.3 7.3 2.9 5];           % Lower Bound of Unknown 
 problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];           % Upper Bound of Unknown Variables
 
 %% SFLA Parameters
-params.MaxIt = 1000;        % Maximum Number of Iterations
+params.MaxIt = 1000;                                  % Maximum Number of Iterations
 
-params.nPopMemeplex = 10;                          % Memeplex Size 10
+params.nPopMemeplex = 10;                           % Memeplex Size 10
 %params.nPopMemeplex = max(nPopMemeplex, nVar+1);   % Nelder-Mead Standard
+params.nMemeplex = 15;                               % Number of Memeplexes 5
 
-params.nMemeplex = 5;                  % Number of Memeplexes 5
+% FLA Parameters
+params.alpha = 3;                                   % Number of offspring                       
+params.beta = 5;                                    % Max number of iterations
+params.w = 1;                                       % Weight factor - to avoid premature convergence
+params.c1 = 2;                                      % Search acceleration factor for eqn 1
+params.c2 = 0.5;                                      % Search acceleration factor for eqn 2
 
 %% Calling PSO
 %out = sfla_algorithm(problem, params);
