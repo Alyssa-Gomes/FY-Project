@@ -24,11 +24,11 @@ problem.VarMax = [3.6 0.8 28 8.3 8.3 3.9 5.5];   % Upper Bound of Decision Varia
 %% PSO Parameters
 
 params.MaxIt = 1000;        % Maximum Number of Iterations
-params.nPop = 30;           % Population (Swarm) Size          
-params.w = 0.5;            % Intertia Coefficient
+params.nPop = 50;           % Population (Swarm) Size          
+params.w = 1;            % Intertia Coefficient
 params.wdamp = 1;           % Inertia Coefficient Damping Ratio
-params.c1 = 1.5;           % Personal Acceleration Coefficient 
-params.c2 = 1.5;           % Social Acceleration Coefficient
+params.c1 = 2.8;           % Personal Acceleration Coefficient 
+params.c2 = 1.3;           % Social Acceleration Coefficient
 params.ShowIterInfo = true; % Iteration Flag
 
 %% Calling PSO
